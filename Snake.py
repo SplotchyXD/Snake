@@ -53,7 +53,7 @@ while running:
             new_head = (head_x + dx * 20, head_y + dy * 20)
             if new_head in Segments:
                 Game_over = True
-                print("Game Over","\nScore:",len(Segments))
+                print("Game Over","\nScore:",len(Segments)-1)
             Segments.insert(0, new_head)
             if new_head == food:
                 food = (random.randint(0, 29) * 20, random.randint(0, 19) * 20)
@@ -62,7 +62,7 @@ while running:
             head_x, head_y = Segments[0]
             if head_x < 0 or head_x >= WIDTH or head_y < 0 or head_y >= HEIGHT:
                 Game_over = True
-                print("Game Over","\nScore:",len(Segments))
+                print("Game Over","\nScore:",len(Segments)-1)
             Last_move_time = current_time
 
         screen.fill((0,0,0))
