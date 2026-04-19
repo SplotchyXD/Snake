@@ -91,7 +91,10 @@ while running:
             screen.blit(text,(220,160))
 
         for part in Segments:
-            pygame.draw.rect(screen, (0,255,0), (*part,20,20))
+            if part == Segments[0]:
+                pygame.draw.rect(screen, (0,120,100), (*part,20,20))
+            else:
+                pygame.draw.rect(screen, (0,200,100), (*part,20,20))
         
         pygame.draw.rect(screen,(255,0,0), (*food, 20, 20))
 
