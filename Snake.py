@@ -2,6 +2,7 @@ import pygame
 import random
 
 pygame.init()
+pygame.font.init()
 
 screen = pygame.display.set_mode((600, 400))
 pygame.display.set_caption("Sanke")
@@ -21,7 +22,6 @@ Move_delay = 150 #ms
 Last_move_time = pygame.time.get_ticks()
 
 food = (random.randint(0,29) * 20, random.randint(0,19) * 20)
-
 Game_over = False
 
 while running:
@@ -63,11 +63,14 @@ while running:
             if head_x < 0 or head_x >= WIDTH or head_y < 0 or head_y >= HEIGHT:
                 Game_over = True
                 print("Game Over","\nScore:",len(Segments))
-
             Last_move_time = current_time
 
         screen.fill((0,0,0))
-
+        
+        Score = pygame.font.SysFont("Arial",30)
+        Score_count ="Score: "+  str(len(Segments)-1)
+        Point_surface = Score.render(Score_count, True, (255,255,255))
+        screen.blit(Point_surface,(20,20))
         pygame.draw.rect(screen, (255,255,255), Border, 2)
 
         for part in Segments:
@@ -76,7 +79,6 @@ while running:
         pygame.draw.rect(screen,(255,0,0), (*food, 20, 20))
     else:
         if Game_over == True:
-            pygame.font.init()
             font = pygame.font.SysFont("Arial", 30, bold=True)
             text = font.render("Game Over", True,(0,0,0), (255,255,255))
             screen.blit(text,(220,160))
