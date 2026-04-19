@@ -28,6 +28,19 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+        if event.type == pygame.KEYDOWN:
+            if Game_over:
+                if event.key == pygame.K_F5:
+                    Segments.clear()
+                    Segments = [(300,200)]
+                    Direction = (1,0)
+                    food = (random.randint(0,29) * 20, random.randint(0,19) * 20)
+                    Last_move_time = pygame.time.get_ticks()
+                    Game_over = False
+                elif event.key == pygame.K_ESCAPE:
+                    running = False
+
     if not Game_over:
         new_direction = Direction       
 
@@ -72,16 +85,15 @@ while running:
         Point_surface = Score.render(Score_count, True, (255,255,255))
         screen.blit(Point_surface,(20,20))
         pygame.draw.rect(screen, (255,255,255), Border, 2)
+        if Game_over == True:
+            font = pygame.font.SysFont("Arial", 30, bold=True)
+            text = font.render("Game Over", True,(0,0,0), (255,255,255))
+            screen.blit(text,(220,160))
 
         for part in Segments:
             pygame.draw.rect(screen, (0,255,0), (*part,20,20))
         
         pygame.draw.rect(screen,(255,0,0), (*food, 20, 20))
-    else:
-        if Game_over == True:
-            font = pygame.font.SysFont("Arial", 30, bold=True)
-            text = font.render("Game Over", True,(0,0,0), (255,255,255))
-            screen.blit(text,(220,160))
 
     pygame.display.update()
     Clock.tick(60)
